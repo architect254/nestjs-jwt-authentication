@@ -1,0 +1,8 @@
+db:
+  host: "localhost"
+  username: "bada"
+  password: "password"
+  synchronize: true
+
+jwt:
+  secret: "topSecretSecret001"
