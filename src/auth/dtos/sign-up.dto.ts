@@ -1,5 +1,6 @@
 import { SignInCredentialsDto } from './sign-in.dto';
 import { IsNotEmpty, IsString, IsEmail, IsDate } from 'class-validator';
+import { Type } from 'class-transformer';
 
 export class SignUpCredentialsDto extends SignInCredentialsDto {
   @IsNotEmpty()
@@ -15,6 +16,7 @@ export class SignUpCredentialsDto extends SignInCredentialsDto {
   email: string;
 
   @IsNotEmpty()
-  //@IsDate()
+  @IsDate()
+  @Type(() => Date)
   dob: Date;
 }

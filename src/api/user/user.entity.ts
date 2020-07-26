@@ -1,8 +1,10 @@
+import { InternalServerErrorException } from '@nestjs/common';
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+
+import { Exclude } from 'class-transformer';
 
 import { BaseEntity } from 'src/shared/base-entity';
 import { encryptionService } from '../../auth/encryption.service';
-import { InternalServerErrorException } from '@nestjs/common';
 
 @Entity()
 export class User extends BaseEntity {
@@ -24,9 +26,11 @@ export class User extends BaseEntity {
   @Column()
   email: string;
 
+  @Exclude()
   @Column()
   password: string;
 
+  @Exclude()
   @Column()
   salt?: string;
 

@@ -21,9 +21,15 @@ export abstract class BaseEntity {
 
   @ManyToOne(() => User, { nullable: true })
   @JoinColumn()
-  createdBy?: User;
+  createdBy: User;
+
+  @Column({ nullable: true })
+  createdById: string;
 
   @ManyToOne(() => User, { nullable: true })
   @JoinColumn()
-  updatedBy?: User;
+  updatedBy: User;
+
+  @Column({ nullable: true })
+  updatedById: string;
 }

@@ -53,6 +53,7 @@ export class UserService {
 
   async readAll(page: number, pageSize: number): Promise<User[]> {
     const skip: number = pageSize * (page - 1);
+
     return await this.userRepo.find({ skip, take: pageSize });
   }
 
@@ -76,7 +77,6 @@ export class UserService {
 
   async drop(id): Promise<any> {
     const user: User = await this.read(id);
-
     const result = await this.userRepo.remove(user);
 
     if (!result) {

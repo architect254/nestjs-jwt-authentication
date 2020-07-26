@@ -26,7 +26,7 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+a nest js api scaffold. complete with logging, http error handling, configuration [typeorm and project including AWS], authentication with jwt.
 
 ## Installation
 

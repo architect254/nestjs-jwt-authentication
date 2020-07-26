@@ -5,6 +5,7 @@ export class SignInCredentialsDto {
   @IsString()
   username: string;
 
+  @IsNotEmpty()
   @IsString()
   password: string;
 }
