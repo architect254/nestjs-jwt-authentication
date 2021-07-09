@@ -17,7 +17,7 @@ import { UserDto } from './user.dto';
 import { GetUser } from 'src/auth/get-user.decorator';
 
 @UseGuards(AuthGuard('jwt'))
-@Controller('api/users')
+@Controller('users')
 export class UserController {
   constructor(private userService: UserService) {}
 

@@ -19,15 +19,12 @@ export class AuthService {
   ) {}
 
   async signUp(credentials: SignUpCredentialsDto): Promise<User> {
-    const { username, password, email, dob, firstname, surname } = credentials;
+    const { password, email } = credentials;
 
     const user = new User();
-    user.username = username;
-    user.firstname = firstname;
 
     user.email = email;
-    user.dob = dob;
-    user.surname = surname;
+
     await user.encrypt();
     await user.hashPassword(password);
 
@@ -43,8 +40,8 @@ export class AuthService {
   }
 
   async validateUserPassword(credentials: SignInCredentialsDto) {
-    const { username, password } = credentials;
-    const user = await this.userRepo.findOne({ username });
+    const { email, password } = credentials;
+    const user = await this.userRepo.findOne({ email });
     if (!user) {
       throw new NotFoundException('user not found');
     }

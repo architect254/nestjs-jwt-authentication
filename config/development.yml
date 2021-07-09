@@ -1,6 +1,6 @@
 db:
   host: "localhost"
-  username: "bada"
+  username: "username"
   password: "password"
   synchronize: true
 

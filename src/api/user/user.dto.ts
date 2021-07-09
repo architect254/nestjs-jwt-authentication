@@ -4,15 +4,7 @@ import { Type } from 'class-transformer';
 export class UserDto {
   @IsString()
   @IsNotEmpty()
-  username: string;
-
-  @IsString()
-  @IsNotEmpty()
-  firstname: string;
-
-  @IsString()
-  @IsNotEmpty()
-  surname: string;
+  name: string;
 
   @IsEmail()
   @IsNotEmpty()

@@ -11,14 +11,8 @@ export class User extends BaseEntity {
   @PrimaryGeneratedColumn()
   id?: number;
 
-  @Column({ unique: true })
-  username: string;
-
   @Column()
-  firstname: string;
-
-  @Column()
-  surname: string;
+  name: string;
 
   @Column({ type: 'date' })
   dob: Date;
