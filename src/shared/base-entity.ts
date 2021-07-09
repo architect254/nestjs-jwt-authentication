@@ -7,7 +7,7 @@ import {
   Column,
 } from 'typeorm';
 
-import { User } from '../api/user/user.entity';
+import { User } from '../user/user.entity';
 
 export abstract class BaseEntity {
   @PrimaryGeneratedColumn()

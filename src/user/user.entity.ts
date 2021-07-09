@@ -4,7 +4,7 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 import { Exclude } from 'class-transformer';
 
 import { BaseEntity } from 'src/shared/base-entity';
-import { encryptionService } from '../../auth/encryption.service';
+import { encryptionService } from '../auth/encryption.service';
 
 @Entity()
 export class User extends BaseEntity {

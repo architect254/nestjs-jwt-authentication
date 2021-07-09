@@ -6,7 +6,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
 import { AuthModule } from './auth/auth.module';
-import { UserModule } from './api/user/user.module';
+import { UserModule } from './user/user.module';
 import { typeOrmConfig } from './config/typeorm.config';
 
 import { HttpErrorFilter } from './shared/http-error.filter';
