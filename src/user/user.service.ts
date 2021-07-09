@@ -6,6 +6,7 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { compare, hash, genSalt } from 'bcrypt';
 
 import { User } from './user.entity';
 import { UserDto } from './user.dto';
@@ -18,13 +19,15 @@ export class UserService {
   ) {}
 
   async create(credentials: UserDto, createdById): Promise<User> {
-    const { name, email } = credentials;
+    const { name, email, password } = credentials;
     const createdBy: User = await this.read(createdById);
     const user = new User();
 
     user.name = name;
     user.email = email;
     user.createdBy = createdBy;
+    user.salt = await genSalt();
+    user.password = await hash(password, user.salt);
 
     return await this.save(user);
   }
@@ -52,7 +55,7 @@ export class UserService {
   }
 
   async update(id, payload: UserDto, updatedById): Promise<User> {
-    const { name, email, } = payload;
+    const { name, email } = payload;
     const updatedBy = await this.read(updatedById);
     const user: User = await this.read(id);
 

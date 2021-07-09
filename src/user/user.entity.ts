@@ -15,7 +15,7 @@ export class User extends BaseEntity {
   // @Column({ type: 'date' })
   // dob: Date;
 
-  @Column()
+  @Column({ unique: true })
   email: string;
 
   @Exclude()

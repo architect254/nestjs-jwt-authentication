@@ -22,17 +22,17 @@ export class UserController {
   constructor(private userService: UserService) {}
 
   @Post()
-  async httpPost(@Body() payload: UserDto, @GetUser('id') userId) {
+  async createUser(@Body() payload: UserDto, @GetUser('id') userId) {
     return await this.userService.create(payload, userId);
   }
 
   @Get('/:id')
-  async httpGet(@Param('id') id) {
+  async getUser(@Param('id') id) {
     return await this.userService.read(id);
   }
 
   @Get()
-  async httpGetAll(
+  async getAllUsers(
     @Query('page') page: number,
     @Query('pageSize') pageSize: number,
   ) {
@@ -40,7 +40,7 @@ export class UserController {
   }
 
   @Put('/:id')
-  async httpPut(
+  async updateUser(
     @Param('id') id,
     @Body() payload: UserDto,
     @GetUser('id') userId,
@@ -49,7 +49,7 @@ export class UserController {
   }
 
   @Delete('/:id')
-  async httpDelete(@Param('id') id) {
+  async deleteUser(@Param('id') id) {
     return await this.userService.drop(id);
   }
 }

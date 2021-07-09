@@ -32,7 +32,7 @@ export class AuthService {
       return await this.userRepo.save(user);
     } catch (error) {
       if (error.errno === 1062) {
-        throw new ConflictException('user already exists');
+        throw new ConflictException('User exists');
       } else {
         throw new InternalServerErrorException(error.message);
       }
@@ -43,7 +43,7 @@ export class AuthService {
     const { email, password } = credentials;
     const user = await this.userRepo.findOne({ email });
     if (!user) {
-      throw new NotFoundException('user not found');
+      throw new NotFoundException('User not found');
     }
     const isValid = await compare(password, user.password);
 
