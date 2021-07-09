@@ -18,17 +18,13 @@ export class UserService {
   ) {}
 
   async create(credentials: UserDto, createdById): Promise<User> {
-    const { name, password, email, dob } = credentials;
+    const { name, email } = credentials;
     const createdBy: User = await this.read(createdById);
     const user = new User();
 
     user.name = name;
     user.email = email;
-    user.dob = dob;
     user.createdBy = createdBy;
-
-    await user.encrypt();
-    await user.hashPassword(password);
 
     return await this.save(user);
   }
@@ -56,17 +52,13 @@ export class UserService {
   }
 
   async update(id, payload: UserDto, updatedById): Promise<User> {
-    const { name, email, dob, password } = payload;
+    const { name, email, } = payload;
     const updatedBy = await this.read(updatedById);
     const user: User = await this.read(id);
 
     user.name = name || user.name;
     user.email = email || user.email;
-    user.dob = dob || user.dob;
     user.updatedBy = updatedBy;
-
-    await user.encrypt();
-    await user.hashPassword(password);
 
     return await this.save(user);
   }

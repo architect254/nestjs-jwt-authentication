@@ -14,8 +14,8 @@ export class UserDto {
   @IsString()
   password: string;
 
-  @IsDate()
-  @IsNotEmpty()
-  @Type(() => Date)
-  dob: Date;
+  // @IsDate()
+  // @IsNotEmpty()
+  // @Type(() => Date)
+  // dob: Date;
 }

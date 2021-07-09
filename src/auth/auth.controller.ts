@@ -1,9 +1,4 @@
-import {
-  Controller,
-  UnauthorizedException,
-  Post,
-  Body,
-} from '@nestjs/common';
+import { Controller, UnauthorizedException, Post, Body } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { JwtPayload } from './jwt.payload';
 
@@ -33,7 +28,7 @@ export class AuthController {
     @Body()
     payload: SignInCredentialsDto,
   ): Promise<{ accessToken: string }> {
-    const user = await this.authService.validateUserPassword(payload);
+    const user = await this.authService.signIn(payload);
     if (!user) {
       throw new UnauthorizedException('invalid Credentials');
     }

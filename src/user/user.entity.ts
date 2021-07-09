@@ -1,10 +1,8 @@
-import { InternalServerErrorException } from '@nestjs/common';
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 import { Exclude } from 'class-transformer';
 
 import { BaseEntity } from 'src/shared/base-entity';
-import { encryptionService } from '../auth/encryption.service';
 
 @Entity()
 export class User extends BaseEntity {
@@ -14,8 +12,8 @@ export class User extends BaseEntity {
   @Column()
   name: string;
 
-  @Column({ type: 'date' })
-  dob: Date;
+  // @Column({ type: 'date' })
+  // dob: Date;
 
   @Column()
   email: string;
@@ -26,26 +24,5 @@ export class User extends BaseEntity {
 
   @Exclude()
   @Column()
-  salt?: string;
-
-  public encrypt() {
-    return encryptionService.genSalt().then(salt => {
-      this.salt = salt;
-    });
-  }
-
-  hashPassword(password: string) {
-    return encryptionService
-      .hash(password, this.salt)
-      .then((hash: string) => {
-        this.password = hash;
-      })
-      .catch(error => {
-        throw new InternalServerErrorException(error);
-      });
-  }
-
-  async validatePassword(password) {
-    return await encryptionService.compare(password, this.password);
-  }
+  salt: string;
 }

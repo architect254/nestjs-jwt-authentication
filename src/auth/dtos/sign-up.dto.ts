@@ -5,18 +5,18 @@ import { Type } from 'class-transformer';
 export class SignUpCredentialsDto extends SignInCredentialsDto {
   @IsNotEmpty()
   @IsString()
-  firstname: string;
-
-  @IsNotEmpty()
-  @IsString()
-  surname: string;
+  name: string;
 
   @IsNotEmpty()
   @IsEmail()
   email: string;
 
+  // @IsNotEmpty()
+  // @IsDate()
+  // @Type(() => Date)
+  // dob: Date;
+
   @IsNotEmpty()
-  @IsDate()
-  @Type(() => Date)
-  dob: Date;
+  @IsString()
+  password: string;
 }

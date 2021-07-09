@@ -5,11 +5,12 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 
+import { compare, hash, genSalt } from 'bcrypt';
 import { User } from '../user/user.entity';
 import { SignUpCredentialsDto } from './dtos/sign-up.dto';
 import { SignInCredentialsDto } from './dtos/sign-in.dto';
-import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class AuthService {
@@ -19,14 +20,13 @@ export class AuthService {
   ) {}
 
   async signUp(credentials: SignUpCredentialsDto): Promise<User> {
-    const { password, email } = credentials;
+    const { password, email, name } = credentials;
 
     const user = new User();
-
+    user.name = name;
     user.email = email;
-
-    await user.encrypt();
-    await user.hashPassword(password);
+    user.salt = await genSalt();
+    user.password = await this.hashPassword(password, user.salt);
 
     try {
       return await this.userRepo.save(user);
@@ -39,17 +39,21 @@ export class AuthService {
     }
   }
 
-  async validateUserPassword(credentials: SignInCredentialsDto) {
+  async signIn(credentials: SignInCredentialsDto) {
     const { email, password } = credentials;
     const user = await this.userRepo.findOne({ email });
     if (!user) {
       throw new NotFoundException('user not found');
     }
-    const isValid = await user.validatePassword(password);
+    const isValid = await compare(password, user.password);
 
     if (!isValid) {
       return null;
     }
     return user;
+  }
+
+  async hashPassword(input: string, salt: string): Promise<string> {
+    return hash(input, salt);
   }
 }
