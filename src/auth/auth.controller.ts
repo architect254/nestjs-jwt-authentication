@@ -32,6 +32,7 @@ export class AuthController {
     if (!user) {
       throw new UnauthorizedException('invalid Credentials');
     }
+    delete user.password && delete user.salt;
     const userPayload: JwtPayload = { user };
     const accessToken = await this.jwtService.sign(userPayload);
 
